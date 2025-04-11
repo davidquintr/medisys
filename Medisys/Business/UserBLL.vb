@@ -71,4 +71,8 @@
         Return UserDAL.DeleteUser(userID)
     End Function
 
+    Public Shared Function GetAllUsersWithoutEmployee() As List(Of User)
+        Return UserDAL.GetAllUsersWithoutEmployee()
+    End Function
+
 End Class

@@ -61,6 +61,31 @@ Public Class UserDAL
         Return users
     End Function
 
+    Public Shared Function GetAllUsersWithoutEmployee() As List(Of User)
+        Dim users As New List(Of User)()
+        Try
+            Using conn As SqlConnection = Connection.GetConnection()
+                Dim query As String = $"SELECT * FROM [ViewUsersWithoutEmployee] where State <> {CInt(State.Deleted)}"
+                Dim cmd As New SqlCommand(query, conn)
+                conn.Open()
+                Dim reader As SqlDataReader = cmd.ExecuteReader()
+                While reader.Read()
+                    Dim user As New User()
+                    user.ID = reader("ID")
+                    user.Username = reader("Username")
+                    user.Password = reader("Password")
+                    user.Email = reader("Email")
+                    user.Role = reader("Role")
+                    user.State = reader("State")
+                    users.Add(user)
+                End While
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("Error: " & ex.Message)
+        End Try
+        Return users
+    End Function
+
     Public Shared Function AddUser(user As User) As Boolean
         Try
             Using conn As SqlConnection = Connection.GetConnection()
@@ -117,30 +142,4 @@ Public Class UserDAL
             Return False
         End Try
     End Function
-
-    Public Shared Function GetAllEmployeeUser() As List(Of ViewEmployeeUser)
-        Dim employeeUsers As New List(Of ViewEmployeeUser)()
-        Try
-            Using conn As SqlConnection = Connection.GetConnection()
-                Dim query As String = $"SELECT * FROM [[ViewEmployeeUser]] where State <> {CInt(State.Deleted)}"
-                Dim cmd As New SqlCommand(query, conn)
-                conn.Open()
-                Dim reader As SqlDataReader = cmd.ExecuteReader()
-                While reader.Read()
-                    Dim user As New ViewEmployeeUser()
-                    user.ID = reader("ID")
-                    user.Username = reader("Username")
-                    user.Address = reader("Address")
-                    user.Name = reader("Name")
-                    user.LastName = reader("LastName")
-                    user.State = reader("State")
-                    employeeUsers.Add(user)
-                End While
-            End Using
-        Catch ex As Exception
-            Console.WriteLine("Error: " & ex.Message)
-        End Try
-        Return employeeUsers
-    End Function
-
 End Class

@@ -26,10 +26,9 @@
         If rowIndex < 0 Then
             Return
         End If
-        Dim specialty As New Specialty With {
-            .ID = specialties(rowIndex).ID,
-            .Name = specialties(rowIndex).Name
-        }
+
+        Dim specialty = specialties(rowIndex)
+
         frmManageSpecialty.SetOnEditSpecialty(specialty)
         frmManageSpecialty.Show()
     End Sub

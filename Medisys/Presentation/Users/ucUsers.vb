@@ -27,14 +27,7 @@
             Return
         End If
 
-        Dim user As New User With {
-            .ID = users(rowIndex).ID,
-            .Username = users(rowIndex).Username,
-            .Password = users(rowIndex).Password,
-            .Email = users(rowIndex).Email,
-            .Role = users(rowIndex).Role,
-            .State = users(rowIndex).State
-        }
+        Dim user = users(rowIndex)
 
         frmManageUser.SetOnEditUser(user)
         frmManageUser.Show()

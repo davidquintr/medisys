@@ -6,4 +6,6 @@
     Public Property Sex As String ' "male" or "female"
     Public Property State As Integer
     Public Property Username As String
+    Public Property Specialty As String
+
 End Class
